@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "https://growth-gold.vercel.app/",
+    origin: "https://growth-gold.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"]
   })
 );
