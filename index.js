@@ -7,11 +7,13 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: "https://growth-gold.vercel.app", // Allow only the specific frontend
-  credentials: true, // Allow credentials like cookies, authorization headers
+  origin: "https://growth-gold.vercel.app",  // Only allow this specific frontend URL
+  credentials: true,  // Allow cookies and authentication headers
+  allowedHeaders: "Content-Type,Authorization",  // Allow specific headers in the request
+  methods: "GET,POST,PUT,DELETE,OPTIONS",  // Allow specific HTTP methods
 };
 
-// Apply CORS middleware
+// Apply CORS middleware globally
 app.use(cors(corsOptions));
 
 // Middleware to parse cookies and handle JSON and URL-encoded data
@@ -19,7 +21,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-// Connect to the database
+// Handle preflight requests (CORS preflight for HTTP methods like OPTIONS)
+app.options("*", cors(corsOptions));  // Make sure preflight OPTIONS is handled
+
+// Connect to MongoDB
 mongoose
   .connect(
     "mongodb+srv://rvengeholder786:7oKU94I6ZZWWaocB@cluster0.nytpx.mongodb.net/?retryWrites=true&w=majority"
@@ -33,9 +38,6 @@ mongoose
 
 // Define routes
 app.use("/", require("./routes/authRoute"));
-
-// Handle preflight requests (CORS preflight for HTTP methods like OPTIONS)
-app.options('*', cors(corsOptions));
 
 // Start the server
 app.listen(8000, () => {
