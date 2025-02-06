@@ -27,7 +27,7 @@ app.options("*", cors(corsOptions));  // Make sure preflight OPTIONS is handled
 // Connect to MongoDB
 mongoose
   .connect(
-    "mongodb+srv://hcenter883:Work@0786@cluster0.dzxoy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodb+srv://Templo:emrWdQFye0BCEOKa@cluster0.t3rcv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
     console.log("Database connected");
